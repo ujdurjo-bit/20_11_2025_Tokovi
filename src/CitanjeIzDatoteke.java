@@ -5,7 +5,8 @@ public class CitanjeIzDatoteke {
         File ulazniFile = new File("dokument.txt");
         File zapis = new File("kopija.txt");
 
-        FileReader ulaz = new FileReader(ulazniFile);
+        zapis.exists();
+    /*    FileReader ulaz = new FileReader(ulazniFile);
         FileWriter izlaz = new FileWriter(zapis);
         int c;
         while ((c =ulaz.read()) != -1) {
@@ -13,7 +14,17 @@ public class CitanjeIzDatoteke {
 
         }
         ulaz.close();
-        izlaz.close();
+        izlaz.close();*/
+//try-with-resource
+        try (FileReader ulaz = new FileReader(ulazniFile);
+             FileWriter izlaz = new FileWriter(zapis)) {
+            int c;
+            while ((c =ulaz.read()) != -1)
+                izlaz.write(c);
+        } catch (IOException e) {
+            System.err.println(e);
+
+        }
 
     }
 }
